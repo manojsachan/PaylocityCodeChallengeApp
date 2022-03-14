@@ -1,0 +1,80 @@
+<div class="row" *ngIf="isLoading">
+  <div class="col-xs-12">
+    <h3>Loading...</h3>
+  </div>
+</div>
+<div class="container-fluid" *ngIf="!isLoading">
+  <div class="row">
+    <div class="col-xs-12">
+      <h1>Employee: {{ employee.firstName }} {{ employee.lastName }}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      Annual salary: <strong>${{ employee.anualSalary }}</strong>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      Cost of benefit: <strong>${{ employee.yearlyCostOfBenefit }}</strong>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      Total cost of benefit: <strong>${{ employee.totalCostOfBenefits }}</strong>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-xs-12">
+      <h2>Dependents:</h2>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-md-6">
+      <div class="list-group">
+        <div class="list-group-item" *ngFor="let dependent of employee.dependents">
+          <p class="list-group-item-text">{{ dependent.firstName }} {{ dependent.lastName }}</p>
+          <span class="list-group-item-heading">Cost of benefit: <strong>${{ dependent.yearlyCostOfBenefit }}</strong></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <form (ngSubmit)="onSubmit()" #dependentForm="ngForm">
+        <div class="form-group col-xs-5">
+          <label for="firstname">First name</label>
+          <input
+            type="text"
+            id="firstname"
+            name="firstname"
+            ngModel
+            required
+            minlength="2"
+            class="form-control"/>
+        </div>
+        <div class="form-group col-xs-5">
+          <label for="lastname">Last name</label>
+          <input
+            type="text"
+            id="lastname"
+            name="lastname"
+            ngModel
+            required
+            minlength="2"
+            class="form-control" />
+        </div>
+        <div class="form-group col-xs-2">
+          <label>&nbsp;</label>
+          <button
+            type="submit"
+            [disabled]="!dependentForm.valid"
+            class="btn btn-primary">
+            Add dependent
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
